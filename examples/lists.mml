@@ -1,0 +1,20 @@
+(* Higher-order list functions. Not one type annotation: every type is inferred. *)
+
+let rec map f xs = match xs with [] -> [] | x :: rest -> f x :: map f rest;;
+
+let rec filter p xs =
+  match xs with
+  | [] -> []
+  | x :: rest -> if p x then x :: filter p rest else filter p rest;;
+
+let rec fold f acc xs = match xs with [] -> acc | x :: rest -> fold f (f acc x) rest;;
+
+let rec range a b = if a > b then [] else a :: range (a + 1) b;;
+
+let sum = fold (fun acc x -> acc + x) 0;;
+
+let is_prime n =
+  let rec check d = if d * d > n then true else if n mod d = 0 then false else check (d + 1) in
+  n > 1 && check 2;;
+
+(sum (map (fun x -> x * x) (range 1 10)), filter is_prime (range 1 50))

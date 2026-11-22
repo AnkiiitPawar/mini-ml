@@ -1,0 +1,8 @@
+(* Rejected before it runs: inside apply_both, f is a lambda-bound (monomorphic)
+   variable, so it cannot be applied to an int and to a bool. Compare with
+   "let id = fun x -> x in (id 1, id true)", which is fine because let-bound
+   names are generalised. *)
+
+let apply_both f = (f 1, f true);;
+
+apply_both (fun x -> x)
